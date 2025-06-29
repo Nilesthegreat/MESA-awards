@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎉 MESA AWARDS NOMINATIONS 2025 🎉</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 MESA AWARDS NOMINATIONS 2025 🎉</h1>
+    <p class="subtext">Dinner • Awards • Gala Night Edition</p>
+    <p class="subtext">🔥 It’s about to be legendary! 🔥</p>
+
+    <div class="countdown" id="countdown">Loading timer...</div>
+
+    <form id="nominationForm">
+      <label for="category">Select Category:</label>
+      <select id="category" name="category" required>
+        <option value="" disabled selected>-- Choose a category --</option>
+        <option>Most Attractive Male</option>
+        <option>Most Attractive Female</option>
+        <option>Moneybag of the Year</option>
+        <option>Best Clique</option>
+        <option>Political Icon</option>
+        <option>Honorable of the Year</option>
+        <option>Executive of the Year</option>
+        <option>Sportsman of the Year (Male)</option>
+        <option>Sportswoman of the Year (Female)</option>
+        <option>Entrepreneur of the Year</option>
+        <option>Most Influential Male</option>
+        <option>Most Influential Female</option>
+        <option>Socialite of the Year (Female)</option>
+        <option>Couple of the Year</option>
+        <option>Most Fashionable Female</option>
+        <option>Brand of the Year</option>
+        <option>Innovator of the Year</option>
+        <option>Class Rep of the Year</option>
+        <option>Most Sought After Male</option>
+        <option>Most Sought After Female</option>
+        <option>Most Sophisticated Male</option>
+        <option>Most Sophisticated Female</option>
+        <option>Best Artist (Music/Art)</option>
+        <option>Most Jovial Personality</option>
+        <option>Big, Bold & Beautiful</option>
+        <option>Slim & Shady</option>
+        <option>Most Classic Personality</option>
+        <option>Best Dancer</option>
+        <option>Miss Ebony</option>
+        <option>Mr. Ebony</option>
+        <option>Content Plug of the Year</option>
+        <option>MESA MVP</option>
+        <option>Freshest Fresher</option>
+        <option>Most Eligible Bachelor</option>
+        <option>Most Eligible Bachelorette</option>
+        <option>Lowkey Baller</option>
+        <option>Glow‑Up of the Year</option>
+        <option>Class of the Year</option>
+        <option>Steady Energy Award</option>
+        <option>The People’s Choice</option>
+      </select>
+
+      <label for="nominee">Nominee Name:</label>
+      <input type="text" id="nominee" name="nominee" placeholder="Enter nominee's name" required />
+
+      <button type="submit">Submit Nomination</button>
+    </form>
+
+    <p id="message" class="message"></p>
+  </div>
+
+  <script>
+    // Countdown Timer
+    const endDate = new Date('July 10, 2025 12:00:00').getTime();
+    const cdEl = document.getElementById('countdown');
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const diff = endDate - now;
+      if (diff < 0) {
+        cdEl.textContent = "Voting day has arrived!";
+        clearInterval(timerInterval);
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+      cdEl.textContent = `${days}d ${hrs}h ${mins}m ${secs}s until July 10, 2025 12:00 PM`;
+    }
+    const timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // Form Submission
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz8UTFGNoZ2mtEApgUIy2AtXxUXI3ZYIXrqFZEOlCotu5naMgLKYAvuGIXFDbDKgyM6/exec'; // 👈 Replace this with your real URL
+    const form = document.getElementById('nominationForm');
+    const messageEl = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const category = document.getElementById("category").value;
+      const nominee = document.getElementById("nominee").value.trim();
+
+      const data = {
+        category: category,
+        nominee: nominee
+      };
+
+      try {
+        const resp = await fetch(scriptURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await resp.json();
+        messageEl.textContent = result.status || 'Nomination submitted successfully!';
+      } catch (err) {
+        console.error(err);
+        messageEl.textContent = 'Error submitting nomination. Please try again.';
+      }
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>

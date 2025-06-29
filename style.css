@@ -1,0 +1,88 @@
+/* style.css */
+
+:root {
+  --purple: #5e239d;
+  --gold: #ffd700;
+  --white: #fff;
+  --bg: #f9f9fb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  color: var(--purple);
+  background-color: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.container {
+  background: var(--white);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+.subtext {
+  font-size: 1rem;
+  color: var(--purple);
+}
+.countdown {
+  margin: 20px 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+label {
+  text-align: left;
+}
+select, input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid var(--purple);
+  border-radius: 8px;
+  outline: none;
+}
+select:focus, input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 5px var(--gold);
+}
+button {
+  padding: 12px;
+  font-size: 1rem;
+  background: var(--purple);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: background 0.3s, transform 0.2s;
+}
+button:hover {
+  background: darken(var(--purple), 10%);
+  transform: translateY(-2px);
+}
+.message {
+  margin-top: 15px;
+  font-weight: bold;
+  color: var(--gold);
+}
+@media (max-width: 480px) {
+  .container { padding: 20px; }
+  h1 { font-size: 1.5rem; }
+}
